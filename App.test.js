@@ -1,5 +1,5 @@
-test('Basic test', () => {
+const { hello } = require('./hello')
 
-    expect(true).toBeTruthy() ;
-
-});
+test('basic test', () => {
+   expect(hello).toBeDefined()
+})
