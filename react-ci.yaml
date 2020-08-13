@@ -1,0 +1,38 @@
+trigger:
+- master
+
+stages:
+- stage: Build
+  jobs:
+  - job: build
+    pool:
+     vmImage: 'ubuntu-latest'
+    
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '12.x'
+      displayName: 'Install Node.js'
+      
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          npm install
+          npm run build
+          ls
+        workingDirectory: 'frontend'
+      displayName: 'Build - ReactJS'
+
+- stage: UnitTest
+  jobs:
+  - job: TestCases
+    steps:
+    - script: |
+        ls
+      workingDirectory: 'frontend'  
+    displayName: 'Unit Testing'  
+
+  
+
+
